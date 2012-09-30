@@ -1,5 +1,5 @@
 /**
-	@license Copyright (c) 2012, Christopher Ramey | http://github.com/cramey/shogi/LICENSE"
+	@license Copyright (c) 2012, Christopher Ramey | http://github.com/cramey/shogi.js/LICENSE"
 */
 var Shogi = {
 	KING : 0,
