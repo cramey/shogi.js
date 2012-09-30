@@ -21,24 +21,24 @@ var Shogi = {
 		'reigning', 'challenging'
 	],
 
-	desc_peice : [
+	desc_piece : [
 		'King', 'Rook', 'Bishop', 'Gold General',
 		'Silver General', 'Knight', 'Lance', 'Pawn'
 	],
 
-	peicePromoted : function(n)
+	piecePromoted : function(n)
 	{
 		return (n & 8) != 0;
 	},
 
-	peiceCanPromote : function(b, l){
-		var peice = b[l];
-		if(peice == -1){ return false; }
+	pieceCanPromote : function(b, l){
+		var piece = b[l];
+		if(piece == -1){ return false; }
 
-		var pe = peice & 15;
+		var pe = piece & 15;
 		if(pe < 1 || pe > 7){ return false; }
 
-		var player = this.peicePlayer(peice);
+		var player = this.piecePlayer(piece);
 		if(player == 0 && l > 26){ return false; }
 
 		if(player == 1 && l < 54){ return false; }
@@ -46,62 +46,62 @@ var Shogi = {
 		return true;
 	},
 
-	peicePlayer : function(n)
+	piecePlayer : function(n)
 	{
 		return (n & 16) >> 4;
 	},
 
-	peiceName : function(n)
+	pieceName : function(n)
 	{
-		return this.desc_peice[n & 7];
+		return this.desc_piece[n & 7];
 	},
 
-	peiceMoves : function(b, l)
+	pieceMoves : function(b, l)
 	{
-		var peice = b[l];
-		var player = this.peicePlayer(peice);
+		var piece = b[l];
+		var player = this.piecePlayer(piece);
 
 		var moves = [];
 
-		switch(peice & 15){
+		switch(piece & 15){
 			case this.KING:
 				var i = l + 9;
-				if(i <= 80 && (b[i] == -1 || this.peicePlayer(b[i]) != player)){
+				if(i <= 80 && (b[i] == -1 || this.piecePlayer(b[i]) != player)){
 					moves.push(i);
 				}
 
 				i = l - 9;
-				if(i >= 0 && (b[i] == -1 || this.peicePlayer(b[i]) != player)){
+				if(i >= 0 && (b[i] == -1 || this.piecePlayer(b[i]) != player)){
 					moves.push(i);
 				}
 
 				i = l + 1;
-				if(i <= 80 && i % 9 != 0 && (b[i] == -1 || this.peicePlayer(b[i]) != player)){
+				if(i <= 80 && i % 9 != 0 && (b[i] == -1 || this.piecePlayer(b[i]) != player)){
 					moves.push(i);
 				}
 
 				i = l - 1;
-				if(i >= 0 && i % 9 != 8 && (b[i] == -1 || this.peicePlayer(b[i]) != player)){
+				if(i >= 0 && i % 9 != 8 && (b[i] == -1 || this.piecePlayer(b[i]) != player)){
 					moves.push(i);
 				}
 
 				i = l + 8;
-				if(i <= 80 && i % 9 != 8 && (b[i] == -1 || this.peicePlayer(b[i]) != player)){
+				if(i <= 80 && i % 9 != 8 && (b[i] == -1 || this.piecePlayer(b[i]) != player)){
 					moves.push(i);
 				}
 
 				i = l + 10;
-				if(i <= 80 && i % 9 != 0 && (b[i] == -1 || this.peicePlayer(b[i]) != player)){
+				if(i <= 80 && i % 9 != 0 && (b[i] == -1 || this.piecePlayer(b[i]) != player)){
 					moves.push(i);
 				}
 
 				i = l - 10;
-				if(i >= 0 && i % 9 != 8 && (b[i] == -1 || this.peicePlayer(b[i]) != player)){
+				if(i >= 0 && i % 9 != 8 && (b[i] == -1 || this.piecePlayer(b[i]) != player)){
 					moves.push(i);
 				}
 
 				i = l - 8;
-				if(i >= 0 && i % 9 != 0 && (b[i] == -1 || this.peicePlayer(b[i]) != player)){
+				if(i >= 0 && i % 9 != 0 && (b[i] == -1 || this.piecePlayer(b[i]) != player)){
 					moves.push(i);
 				}
 			break;
@@ -113,43 +113,43 @@ var Shogi = {
 			case this.PROMOTED_LANCE:
 			case this.PROMOTED_KNIGHT:
 				var i = l + 9;
-				if(i <= 80 && (b[i] == -1 || this.peicePlayer(b[i]) != player)){
+				if(i <= 80 && (b[i] == -1 || this.piecePlayer(b[i]) != player)){
 					moves.push(i);
 				}
 
 				i = l - 9;
-				if(i >= 0 && (b[i] == -1 || this.peicePlayer(b[i]) != player)){
+				if(i >= 0 && (b[i] == -1 || this.piecePlayer(b[i]) != player)){
 					moves.push(i);
 				}
 
 				i = l + 1;
-				if(i <= 80 && i % 9 != 0 && (b[i] == -1 || this.peicePlayer(b[i]) != player)){
+				if(i <= 80 && i % 9 != 0 && (b[i] == -1 || this.piecePlayer(b[i]) != player)){
 					moves.push(i);
 				}
 
 				i = l - 1;
-				if(i >= 0 && i % 9 != 8 && (b[i] == -1 || this.peicePlayer(b[i]) != player)){
+				if(i >= 0 && i % 9 != 8 && (b[i] == -1 || this.piecePlayer(b[i]) != player)){
 					moves.push(i);
 				}
 
 				if(player){
 					i = l + 8;
-					if(i <= 80 && i % 9 != 8 && (b[i] == -1 || this.peicePlayer(b[i]) != player)){
+					if(i <= 80 && i % 9 != 8 && (b[i] == -1 || this.piecePlayer(b[i]) != player)){
 						moves.push(i);
 					}
 
 					i = l + 10;
-					if(i <= 80 && i % 9 != 0 && (b[i] == -1 || this.peicePlayer(b[i]) != player)){
+					if(i <= 80 && i % 9 != 0 && (b[i] == -1 || this.piecePlayer(b[i]) != player)){
 						moves.push(i);
 					}
 				} else {
 					i = l - 10;
-					if(i >= 0 && i % 9 != 8 && (b[i] == -1 || this.peicePlayer(b[i]) != player)){
+					if(i >= 0 && i % 9 != 8 && (b[i] == -1 || this.piecePlayer(b[i]) != player)){
 						moves.push(i);
 					}
 
 					i = l - 8;
-					if(i >= 0 && i % 9 != 0 && (b[i] == -1 || this.peicePlayer(b[i]) != player)){
+					if(i >= 0 && i % 9 != 0 && (b[i] == -1 || this.piecePlayer(b[i]) != player)){
 						moves.push(i);
 					}
 				}
@@ -158,12 +158,12 @@ var Shogi = {
 
 			case this.KNIGHT:
 				var i = l + (player ? 19 : -19);
-				if(i >= 0 && i % 9 != 8 && (b[i] == -1 || this.peicePlayer(b[i]) != player)){
+				if(i >= 0 && i % 9 != 8 && (b[i] == -1 || this.piecePlayer(b[i]) != player)){
 					moves.push(i);
 				}
 
 				i = l + (player ? 17 : -17);
-				if(i >= 0 && i % 9 != 0 && (b[i] == -1 || this.peicePlayer(b[i]) != player)){
+				if(i >= 0 && i % 9 != 0 && (b[i] == -1 || this.piecePlayer(b[i]) != player)){
 					moves.push(i);
 				}
 			break;
@@ -173,14 +173,14 @@ var Shogi = {
 				if(player){
 					for(var i = l + 9; i <= 80; i += 9){
 						if(b[i] == -1){ moves.push(i); }
-						else if(this.peicePlayer(b[i]) != player){
+						else if(this.piecePlayer(b[i]) != player){
 							moves.push(i); break;
 						} else { break; }
 					}
 				} else {
 					for(var i = l - 9; i >= 0; i -= 9){
 						if(b[i] == -1){ moves.push(i); }
-						else if(this.peicePlayer(b[i]) != player){
+						else if(this.piecePlayer(b[i]) != player){
 							moves.push(i); break;
 						} else { break; }
 					}
@@ -191,49 +191,49 @@ var Shogi = {
 
 			case this.PROMOTED_ROOK:
 				var i = l - 10;
-				if(i >= 0 && i % 9 != 8 && (b[i] == -1 || this.peicePlayer(b[i]) != player)){
+				if(i >= 0 && i % 9 != 8 && (b[i] == -1 || this.piecePlayer(b[i]) != player)){
 					moves.push(i);
 				}
 
 				i = l - 8;
-				if(i >= 0 && i % 9 != 0 && (b[i] == -1 || this.peicePlayer(b[i]) != player)){
+				if(i >= 0 && i % 9 != 0 && (b[i] == -1 || this.piecePlayer(b[i]) != player)){
 					moves.push(i);
 				}
 
 				i = l + 8;
-				if(i <= 80 && i % 9 != 8 && (b[i] == -1 || this.peicePlayer(b[i]) != player)){
+				if(i <= 80 && i % 9 != 8 && (b[i] == -1 || this.piecePlayer(b[i]) != player)){
 					moves.push(i);
 				}
 
 				i = l + 10;
-				if(i <= 80 && i % 9 != 0 && (b[i] == -1 || this.peicePlayer(b[i]) != player)){
+				if(i <= 80 && i % 9 != 0 && (b[i] == -1 || this.piecePlayer(b[i]) != player)){
 					moves.push(i);
 				}
 			case this.ROOK:
 				for(var i = l - 9; i >= 0; i -= 9){
 					if(b[i] == -1){ moves.push(i); }
-					else if(this.peicePlayer(b[i]) != player){
+					else if(this.piecePlayer(b[i]) != player){
 						moves.push(i); break;
 					} else { break; }
 				}
 
 				for(var i = l - 1; i % 9 != 8; i--){
 					if(b[i] == -1){ moves.push(i); }
-					else if(this.peicePlayer(b[i]) != player){
+					else if(this.piecePlayer(b[i]) != player){
 						moves.push(i); break;
 					} else { break; }
 				}
 
 				for(var i = l + 1; i % 9 != 0; i++){
 					if(b[i] == -1){ moves.push(i); }
-					else if(this.peicePlayer(b[i]) != player){
+					else if(this.piecePlayer(b[i]) != player){
 						moves.push(i); break;
 					} else { break; }
 				}
 
 				for(var i = l + 9; i <= 80; i += 9){
 					if(b[i] == -1){ moves.push(i); }
-					else if(this.peicePlayer(b[i]) != player){
+					else if(this.piecePlayer(b[i]) != player){
 						moves.push(i); break;
 					} else { break; }
 				}
@@ -242,49 +242,49 @@ var Shogi = {
 
 			case this.PROMOTED_BISHOP:
 				var i = l + 9;
-				if(i <= 80 && (b[i] == -1 || this.peicePlayer(b[i]) != player)){
+				if(i <= 80 && (b[i] == -1 || this.piecePlayer(b[i]) != player)){
 					moves.push(i);
 				}
 
 				i = l - 9;
-				if(i >= 0 && (b[i] == -1 || this.peicePlayer(b[i]) != player)){
+				if(i >= 0 && (b[i] == -1 || this.piecePlayer(b[i]) != player)){
 					moves.push(i);
 				}
 
 				i = l + 1;
-				if(i <= 80 && i % 9 != 0 && (b[i] == -1 || this.peicePlayer(b[i]) != player)){
+				if(i <= 80 && i % 9 != 0 && (b[i] == -1 || this.piecePlayer(b[i]) != player)){
 					moves.push(i);
 				}
 
 				i = l - 1;
-				if(i >= 0 && i % 9 != 8 && (b[i] == -1 || this.peicePlayer(b[i]) != player)){
+				if(i >= 0 && i % 9 != 8 && (b[i] == -1 || this.piecePlayer(b[i]) != player)){
 					moves.push(i);
 				}
 			case this.BISHOP:
 				for(var i = l - 8; i >= 0 && i % 9 != 0; i -= 8){
 					if(b[i] == -1){ moves.push(i); }
-					else if(this.peicePlayer(b[i]) != player){
+					else if(this.piecePlayer(b[i]) != player){
 						moves.push(i); break;
 					} else { break; }
 				}
 
 				for(var i = l - 10; i >= 0 && i % 9 != 8; i -= 10){
 					if(b[i] == -1){ moves.push(i); }
-					else if(this.peicePlayer(b[i]) != player){
+					else if(this.piecePlayer(b[i]) != player){
 						moves.push(i); break;
 					} else { break; }
 				}
 
 				for(var i = l + 8; i <= 80 && i % 9 != 8; i += 8){
 					if(b[i] == -1){ moves.push(i); }
-					else if(this.peicePlayer(b[i]) != player){
+					else if(this.piecePlayer(b[i]) != player){
 						moves.push(i); break;
 					} else { break; }
 				}
 
 				for(var i = l + 10; i <= 80 && i % 9 != 0; i += 10){
 					if(b[i] == -1){ moves.push(i); }
-					else if(this.peicePlayer(b[i]) != player){
+					else if(this.piecePlayer(b[i]) != player){
 						moves.push(i); break;
 					} else { break; }
 				}
@@ -293,7 +293,7 @@ var Shogi = {
 
 			case this.PAWN:
 				var i = l + (player ? 9 : -9);
-				if(i >= 0 && i <= 80 && (b[i] == -1 || this.peicePlayer(b[i]) != player)){
+				if(i >= 0 && i <= 80 && (b[i] == -1 || this.piecePlayer(b[i]) != player)){
 					moves.push(i);
 				}
 			break;
@@ -301,27 +301,27 @@ var Shogi = {
 
 			case this.SILVER_GENERAL:
 				i = l + (player ? 9 : -9);
-				if(i >= 0 && i <= 80 && (b[i] == -1 || this.peicePlayer(b[i]))){
+				if(i >= 0 && i <= 80 && (b[i] == -1 || this.piecePlayer(b[i]))){
 					moves.push(i);
 				}
 
 				var i = l - 10;
-				if(i >= 0 && i % 9 != 8 && (b[i] == -1 || this.peicePlayer(b[i]) != player)){
+				if(i >= 0 && i % 9 != 8 && (b[i] == -1 || this.piecePlayer(b[i]) != player)){
 					moves.push(i);
 				}
 
 				i = l - 8;
-				if(i >= 0 && i % 9 != 0 && (b[i] == -1 || this.peicePlayer(b[i]) != player)){
+				if(i >= 0 && i % 9 != 0 && (b[i] == -1 || this.piecePlayer(b[i]) != player)){
 					moves.push(i);
 				}
 
 				i = l + 8;
-				if(i <= 80 && i % 9 != 8 && (b[i] == -1 || this.peicePlayer(b[i]) != player)){
+				if(i <= 80 && i % 9 != 8 && (b[i] == -1 || this.piecePlayer(b[i]) != player)){
 					moves.push(i);
 				}
 
 				i = l + 10;
-				if(i <= 80 && i % 9 != 0 && (b[i] == -1 || this.peicePlayer(b[i]) != player)){
+				if(i <= 80 && i % 9 != 0 && (b[i] == -1 || this.piecePlayer(b[i]) != player)){
 					moves.push(i);
 				}
 			break;
@@ -330,13 +330,13 @@ var Shogi = {
 		return moves;
 	},
 
-	peiceDescription : function(n)
+	pieceDescription : function(n)
 	{
 		var pl = (n & 16) >> 4;
 		var pe = n & 7;
 
-		return (this.peicePromoted(n) ? 'Promoted ' : '') +
-			this.peiceName(n) +
+		return (this.piecePromoted(n) ? 'Promoted ' : '') +
+			this.pieceName(n) +
 			(pe == this.KING ? ' (' + this.desc_king[pl] + ')' : '');
 	},
 
